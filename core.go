@@ -49,7 +49,12 @@ func (xu UUID) MarshalBinary() ([]byte, error) {
 }
 
 func (xu *UUID) UnmarshalText(data []byte) error {
-	return (*uuid.UUID)(xu).UnmarshalText(data)
+	parsedUUID, err := uuid.Parse(string(data))
+	if err != nil {
+		return err
+	}
+	*xu = UUID(parsedUUID)
+	return nil
 }
 
 func (xu UUID) MarshalText() ([]byte, error) {
