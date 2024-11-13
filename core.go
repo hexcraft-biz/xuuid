@@ -52,6 +52,7 @@ func (xu UUID) MarshalBinary() ([]byte, error) {
 func (xu *UUID) UnmarshalText(data []byte) error {
 	parsedUUID, err := uuid.Parse(string(data))
 	if err != nil {
+		fmt.Println(string(data))
 		return fmt.Errorf("%s is not a valid UUID", data)
 	}
 	*xu = UUID(parsedUUID)
