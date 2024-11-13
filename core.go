@@ -3,6 +3,7 @@ package xuuid
 import (
 	"database/sql/driver"
 	"encoding/json"
+	"fmt"
 
 	"github.com/google/uuid"
 )
@@ -51,7 +52,7 @@ func (xu UUID) MarshalBinary() ([]byte, error) {
 func (xu *UUID) UnmarshalText(data []byte) error {
 	parsedUUID, err := uuid.Parse(string(data))
 	if err != nil {
-		return err
+		return fmt.Errorf("%s is not a valid UUID", data)
 	}
 	*xu = UUID(parsedUUID)
 	return nil
